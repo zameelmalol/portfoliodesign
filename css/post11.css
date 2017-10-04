@@ -1,0 +1,92 @@
+@charset "utf-8";
+/* CSS Document */
+img {
+	padding-left: 10px;
+}
+#wrapper {
+	background-color: #6E6E6E;
+}
+#header {
+	position: relative;
+	height: 100px;
+	background-color: #BEF781;
+	padding: 10px;
+}
+#headingText {
+	display: block;
+	font-size: 2em;
+	margin-top: 0.67em;
+	margin-bottom: 0.67em;
+	margin-left: 0;
+	margin-right: 0;
+	font-weight: bold;
+}
+#content {
+	width: 90%;
+	height: auto;
+	float: right;
+}
+#content:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+#textcontainer {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+#text1 {
+	background-color: #F3F781;
+	height: auto;
+	float: left;
+	padding: 10px;
+}
+#text2 {
+	background-color: #F5A9A9;
+	height: 100%;
+	padding: 10px;
+	padding-top: 10px;
+	float: left;
+}
+#text1 img {
+	padding-right: 10px;
+	padding-left: 10px;
+	float: right;
+}
+#text2 img {
+	padding-right: 10px;
+	padding-left: 10px;
+	float: left;
+}
+#sidebar {
+	height: auto;
+	background-color: #6E6E6E;
+	width: 10%;
+	float: left;
+}
+#sb1_item, #sb2_item, #sb3_item {
+	border-top: none;
+	padding: 10px;
+	text-align: left;
+}
+#sidebar a {
+	color: white;
+	text-decoration: none;
+}
+#sb1_item:hover, #sb2_item:hover, #sb3_item:hover {
+	background-color: #2E2E2E;
+}
+#footer {
+	clear: both;
+	height: 50px;
+	background-color: #CEECF5;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#alignleft {
+	float: left;
+}
+#alignright {
+	float: right;
+}

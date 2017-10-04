@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+/* Styles for CSS Popup */
+
+#blanket {
+  background-color: #111;
+  opacity: 0.65;
+  background: #000 none repeat scroll 0% 0%;
+  position: absolute;
+  z-index: 9001;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+#popUpDiv {
+  position: absolute;
+  background: url(../images/post1/page1.jpg) no-repeat;
+  width: 1000px;
+  height: 655px;
+  border: 5px solid #000;
+  z-index: 9002;
+}
+
+#popUpDiv button {
+  position: relative;
+  top: -3px;
+  left: 941px
+}
+
+#popUpDiv a {
+  position: relative;
+  top: 0px;
+  left: -63px;
+}

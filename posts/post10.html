@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Assignment 7</title>
+  <link rel="stylesheet" type="text/css" href="../css/post10.css">
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="header">Matching Game</div>
+    <div class="game_board">
+      <div id="sq_0"></div>
+      <div id="sq_1"></div>
+      <div id="sq_2"></div>
+      <div id="sq_3"></div>
+      <div id="sq_4"></div>
+      <div id="sq_5"></div>
+      <div id="sq_6"></div>
+      <div id="sq_7"></div>
+      <div id="sq_8"></div>
+      <div id="sq_9"></div>
+      <div id="sq_10"></div>
+      <div id="sq_11"></div>
+      <div id="sq_12"></div>
+      <div id="sq_13"></div>
+      <div id="sq_14"></div>
+      <div id="sq_15"></div>
+    </div>
+  </div>
+  <script>
+    var current_sq;
+    var previous_sq;
+    var secondClick = false;
+    var equal_sq = 0;
+
+    var arrayImages = ["chicken-icon.png", "crab-icon.png", "dolphin-icon.png", "gold-fish-icon.png", "horse-icon.png", "octopus-icon.png", "rabbit-icon.png", "turtle-icon.png"];
+    var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+    var sq_Divs = document.getElementsByClassName("game_board")[0].childNodes;
+    var j = 0;
+    var arrayDivs = [];
+    for (var i = 0; i < sq_Divs.length; i++) {
+      var divId = sq_Divs[i].id;
+      if (divId !== undefined) {
+        arrayDivs[j] = divId;
+        j++;
+      }
+    }
+
+    window.onload =
+      function loadPage() {
+        loadImages();
+        hideImages();
+        assignClickHandler();
+        titleExpand();
+      };
+
+    function titleExpand() {
+      var elem = document.getElementById("header");
+      elem.className = "title-expand"
+      elem.addEventListener("transitionend", titleShrink, false);
+    }
+
+    function titleShrink() {
+      document.getElementById("header").className = "";
+    }
+
+
+
+    function loadImages() {
+      var total = arrayDivs.length;
+      for (var i = 0; i < total; i++) {
+        addImageHTML(arrayDivs[i], '<img>');
+      }
+      shuffle(numbers);
+      var z = 0;
+      var num = 0;
+      for (i = 0; i < 16; i++) {
+        num = numbers[i];
+        z++;
+        if (z === 8) {
+          z = 0;
+        }
+        changeImageSRC(arrayDivs[num], arrayImages[z]);
+      }
+    }
+
+    function shuffle(array) {
+      var m = array.length,
+        t, i;
+      while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+      }
+      return array;
+    }
+
+    function addImageHTML(div, code) {
+      document.getElementById(div).innerHTML = code;
+    }
+
+    function changeImageSRC(div, filename) {
+      document.getElementById(div).firstChild.src = '../images/post10/' + filename;
+      document.getElementById(div).firstChild.alt = 'Image ' + filename;
+    }
+
+    function hideImages() {
+      var total = arrayDivs.length;
+      for (var i = 0; i < total; i++) {
+        changeSquareStateFirst(arrayDivs[i], "hidden");
+        changeImgVisibility(arrayDivs[i], "hidden");
+      }
+    }
+
+    function changeSquareState(div, state) {
+      var sqDiv = document.getElementById(div);
+      if (sqDiv.classList.contains('flipY')) {
+        sqDiv.className = 'state-' + state + ' flipX';
+      } else {
+        sqDiv.className = 'state-' + state + ' flipY';
+      }
+    }
+
+    function changeSquareStateFirst(div, state) {
+      document.getElementById(div).className = 'state-' + state;
+    }
+
+    function changeImgVisibility(div, state) {
+      document.getElementById(div).firstChild.className = 'visibility-' + state;
+    }
+
+    function assignClickHandler() {
+      var total = arrayDivs.length;
+      for (var i = 0; i < total; i++) {
+        changeClickHandler(arrayDivs[i], "add", i);
+      }
+    }
+
+
+    function changeClickHandler(div, state, x) {
+      if (state === "add") {
+        document.getElementById(div).setAttribute("onclick", "clickHandler(" + x + ")");
+      } else if (state === "remove") {
+        document.getElementById(div).removeAttribute("onclick");
+      }
+    }
+
+
+    function clickHandler(x) {
+      var div = "sq_" + x;
+      if (!secondClick) {
+        current_sq = div;
+        changeSquareState(current_sq, "visible");
+        changeImgVisibility(current_sq, "visible");
+        secondClick = true;
+      } else {
+        if (div === current_sq) {
+          changeSquareState(current_sq, "hidden");
+          changeImgVisibility(current_sq, "hidden");
+          secondClick = false;
+        } else {
+          previous_sq = current_sq;
+          current_sq = div;
+          changeSquareState(current_sq, "visible");
+          changeImgVisibility(current_sq, "visible");
+          secondClick = false;
+          checkIfMatchingSquare();
+        }
+      }
+    }
+
+    function checkIfMatchingSquare() {
+      var current_img_src = document.getElementById(current_sq).firstChild.src;
+      var previous_img_src = document.getElementById(previous_sq).firstChild.src;
+      if (current_img_src !== previous_img_src) {
+        alert("Sorry not a match.");
+        changeSquareState(current_sq, "hidden");
+        changeImgVisibility(current_sq, "hidden");
+        changeSquareState(previous_sq, "hidden");
+        changeImgVisibility(previous_sq, "hidden");
+      } else {
+        changeSquareState(current_sq, "matching");
+        changeImgVisibility(current_sq, "visible");
+        changeClickHandler(current_sq, "remove");
+
+        changeSquareState(previous_sq, "matching");
+        changeImgVisibility(previous_sq, "visible");
+        changeClickHandler(previous_sq, "remove");
+        equal_sq++;
+
+        matching();
+      }
+      checkGameStatus();
+    }
+
+    function checkGameStatus() {
+      if (equal_sq === 8) {
+        somethingFun();
+        alert("GAME OVER");
+      }
+    }
+
+    function matching() {
+      var elem1 = document.getElementById(current_sq);
+      var elem2 = document.getElementById(previous_sq);
+      elem1.className = "state-matching grow";
+      elem2.className = "state-matching grow";
+      elem2.addEventListener("transitionend", resetSq, false);
+    }
+
+    function resetSq() {
+      var elem1 = document.getElementById(current_sq);
+      var elem2 = document.getElementById(previous_sq);
+      elem1.className = "state-matching";
+      elem2.className = "state-matching";
+      elem2.addEventListener("transitionend", revert, false);
+    }
+
+    function revert() {
+      var elem1 = document.getElementById(current_sq);
+      var elem2 = document.getElementById(previous_sq);
+      elem1.className = "state-matching revert";
+      elem2.className = "state-matching revert";
+      elem2.addEventListener("transitionend", spin, false);
+    }
+
+    function spin() {
+      var elem1 = document.getElementById(current_sq);
+      var elem2 = document.getElementById(previous_sq);
+      elem1.className = "state-matching spin";
+      elem2.className = "state-matching spin";
+    }
+
+    function somethingFun() {
+      titleExpand();
+      document.getElementsByClassName("game_board")[0].className += " flipY";
+      var elem = document.getElementById("header");
+      elem.className = "title-expand"
+      elem.addEventListener("transitionend", titleShrink, false);
+      var imgs = document.getElementsByTagName("img");
+      for (var i = 0; i < imgs.length; i++) {
+        imgs[i].className += " flipZ";
+      }
+    }
+  </script>
+</body>
+
+</html>

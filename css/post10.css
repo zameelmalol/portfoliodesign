@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+/* CSS Document */
+
+body {
+  background-color: #CCC;
+}
+
+#wrapper {
+  margin-top: 20px;
+}
+
+#header {
+  width: 496px;
+  border: 1px solid #999;
+  margin-left: 30px;
+  background-color: #FFC;
+  color: #00F;
+  font-size: 35px;
+  letter-spacing: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-variant: small-caps;
+  text-align: center;
+  transition: font-size 1s;
+}
+
+.game_board {
+  width: 528px;
+  height: 528px;
+  margin: 15px;
+}
+
+#sq_0,
+#sq_1,
+#sq_2,
+#sq_3,
+#sq_4,
+#sq_5,
+#sq_6,
+#sq_7,
+#sq_8,
+#sq_9,
+#sq_10,
+#sq_11,
+#sq_12,
+#sq_13,
+#sq_14,
+#sq_15 {
+  width: 100px;
+  height: 100px;
+  margin: 15px;
+  float: left;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.state-hidden {
+  background-color: #369;
+  border: 1px solid #000;
+}
+
+.state-hidden:hover {
+  background-color: #903;
+}
+
+.visibility-visible {
+  visibility: visible;
+}
+
+.state-visible {
+  background-color: #FFF;
+  border: 1px solid #000;
+}
+
+.state-matching {
+  background-color: #FFF;
+  border: 1px dashed #000;
+}
+
+.title-expand {
+  font-size: 55px !important;
+  transition: font-size 1s !important;
+}
+
+.flip {
+  transform: rotateY(0deg);
+  transition: transform 1s;
+}
+
+.flipY {
+  transform: rotateY(360deg);
+  transition: transform 1s;
+}
+
+.flipX {
+  transform: rotateY(-360deg);
+  transition: transform 1s;
+}
+
+.flipZ {
+  transform: rotateZ(360deg);
+  transition: transform 1s;
+}
+
+.spin {
+  transform: rotate(360deg);
+  transition: transform 1s;
+}
+
+.grow {
+  width: 300px !important;
+  height: 300px !important;
+  transition: width 1s, height 1s;
+}
+
+.revert {
+  width: 100px;
+  height: 100px;
+  transition: width 1s, height 1s;
+}
